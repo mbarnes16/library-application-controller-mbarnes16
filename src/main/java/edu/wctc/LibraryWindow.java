@@ -3,6 +3,7 @@ package edu.wctc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wctc.data.Book;
 import edu.wctc.data.Borrower;
+import edu.wctc.refactored.Controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,24 +47,6 @@ public class LibraryWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void checkoutBook() {
-        // Get selections from the JLists (window widgets)
-        Borrower borrower = getSelectedBorrower();
-        Book book = getSelectedAvailableBook();
-
-        // Ensure one of each is selected
-        if (book == null || borrower == null) {
-            JOptionPane.showMessageDialog(this, "You must select a borrower and a book to checkout.");
-        } else {
-            // Remove book from data list and add to selected borrower
-            availableBookList.remove(book);
-            borrower.checkoutBook(book);
-
-            // Update the screen to show the book is checked out
-            refreshBookDisplay(availableBookList);
-        }
-    }
-
     // Get search term from the text box
     public String getBookSearchTerm() {
         return txtBookSearch.getText();
@@ -89,6 +72,23 @@ public class LibraryWindow extends JFrame {
         return lstBorrowers.getSelectedValue();
     }
 
+    public void checkoutBook() {
+        // Get selections from the JLists (window widgets)
+        Borrower borrower = edu.wctc.refactored.LibraryWindow.getSelectedBorrower();
+        Book book = edu.wctc.refactored.LibraryWindow.getSelectedAvailableBook();
+
+        // Ensure one of each is selected
+        if (book == null || borrower == null) {
+            JOptionPane.showMessageDialog(this, "You must select a borrower and a book to checkout.");
+        } else {
+            // Remove book from data list and add to selected borrower
+            Controller.availableBookList.remove(book);
+            borrower.checkoutBook(book);
+
+            // Update the screen to show the book is checked out
+            refreshBookDisplay(Controller.availableBookList);
+        }
+    }
     private void init() {
         // Add actions to the buttons that will call a method when clicked
         btnCheckoutBook.addActionListener(e -> checkoutBook());

@@ -1,11 +1,5 @@
 [ {
   "author" : {
-    "firstName" : "Herman",
-    "lastName" : "Melville"
-  },
-  "title" : "Moby Dick"
-}, {
-  "author" : {
     "firstName" : "Frank",
     "lastName" : "Herbert"
   },
